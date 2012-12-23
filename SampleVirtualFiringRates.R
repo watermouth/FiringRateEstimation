@@ -1,10 +1,9 @@
-SampleVirtualFiringRates <- function(n, systemFun=sampleLocalGaussian, observFun=gaussianObservation, seed=8887){
+SampleVirtualFiringRates <- function(n, systemFun=sampleLocalGaussian, observFun=gaussianObservation, seed=8887, allowNegative=F){
   # To fix random sequence
   set.seed(seed)
   # system model: fun
   x <- systemFun(n)
-  if(any(x < 0)) stop("error: negative firing rates are generated")
-  stopifnot(all(x >= 0))
+  if( !allowNegative & any(x < 0)) stop("error: negative firing rates are generated")
   # observation model
   y <- observFun(x)
   return(list(x=x,y=y))
