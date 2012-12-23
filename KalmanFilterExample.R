@@ -11,7 +11,7 @@ observation <- matrix(sampledData$y, nrow=1)
 source("KalmanFilter.R")
 ssmParam <- list(systemVariance=0.01, observationVariance=0.1)
 kf <- KalmanFilter(P0=matrix(1), HHt=array(ssmParam$systemVariance,c(1,1,1)), GGt=array(ssmParam$observationVariance,c(1,1,1)))
-kf.obj <- kf(observation=observation,initialState=0)
+kf.obj <- Filtering(observation=observation,initialState=0,filterFun=kf)
 
 filteredState <- kf.obj$att[1,]
 filteredStateP1Sigma <- filteredState + kf.obj$Ptt[1,1,]
