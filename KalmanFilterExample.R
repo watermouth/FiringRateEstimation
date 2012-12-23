@@ -21,15 +21,6 @@ filteringObject <- Filtering(observation=observation,initialState=0,filterGenera
                     )
 filter.obj <- filteringObject$filter.obj
 fit.obj <- filteringObject$fit.obj
-
-targetParams <- filterArgs
-targetParams$P0 <- NULL
-objective <- function(par){
-#   tempkf <- do.call(what=KalmanFilter, args=targetParameters)
-  sapply(targetParameters, function(x) which(x == formalArgs(kf)))
-}
-
-
 filteredState <- filter.obj$att[1,]
 filteredStateP1Sigma <- filteredState + sqrt(filter.obj$Ptt[1,1,])
 filteredStateM1Sigma <- filteredState - sqrt(filter.obj$Ptt[1,1,])
