@@ -2,10 +2,11 @@ source("Filtering.R")
 source("SampleVirtualFiringRates.R")
 
 # virtual firing rate sampling
+timeSteps <- 100
 hiddenParam <- list(systemVariance=0.05^2, observationVariance=0.1^2)
 sysFun <- function(n){ sampleLocalGaussian(n=n,init_x=0.7,sd=sqrt(hiddenParam$systemVariance)) }
 obsFun <- function(x){ gaussianObservation(x=x,sd=sqrt(hiddenParam$observationVariance)) }
-sampledData <- SampleVirtualFiringRates(n=100,systemFun=sysFun, observFun=obsFun, seed=88,allowNegative=F)
+sampledData <- SampleVirtualFiringRates(n=timeSteps,systemFun=sysFun, observFun=obsFun, seed=88,allowNegative=F)
 observation <- matrix(sampledData$y, nrow=1)
 
 # filter
@@ -38,6 +39,8 @@ print("hidden params")
 print(c(hiddenParam,recursive=T))
 print("estimated params")
 print(fit.obj$par)
+print("rate of finding observations in 1 sigma")
+print(length((which(filteredStateM1Sigma < observation & filteredStateP1Sigma > observation))) / timeSteps)
 
 
 
