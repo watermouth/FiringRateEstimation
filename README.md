@@ -1,14 +1,16 @@
-code examples how to analyze firing rate 
-・Kalman filter example using fkf package 
-・Sequential Monte Carlo filter
+Code examples which show how to analyze firing rates
+---
 
-Settings
-install fkf package
-save all files in the same directory
+- Kalman filter example using fkf package 
+- Sequential Monte Carlo filter
 
-Kalman Filter
-source("KalmanFilterExamle.R")
+**Settings**
+- install fkf package
+- save all files in the same directory
 
-SMC Filter
-source("SequentialMonteCarloFilter.R")
+*Kalman Filter*
+- source("KalmanFilterExamle.R")
+
+*SMC Filter*
+- source("SequentialMonteCarloFilter.R")
 
