@@ -1,3 +1,4 @@
+rm(list=ls())
 source("Filtering.R")
 source("SampleVirtualFiringRates.R")
 

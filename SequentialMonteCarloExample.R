@@ -4,7 +4,7 @@ source("SampleVirtualFiringRates.R")
 source("SequentialMonteCarloFilter.R")
 
 # virtual firing rate sampling
-timeSteps <- 200
+timeSteps <- 100
 hiddenParam <- list(systemVariance=0.05^2, observationVariance=0.07^2)
 sysFun <- function(n){ sampleLocalGaussian(n=n,init_x=0.7,sd=sqrt(hiddenParam$systemVariance)) }
 obsFun <- function(x){ gaussianObservation(x=x,sd=sqrt(hiddenParam$observationVariance)) }
@@ -30,7 +30,7 @@ smcObservationProb_gaussian <- function(observation, stateMatrix, modelParameter
   matrix(dnorm(x=observation, mean=c(stateMatrix), sd=modelParameters[["obsSd"]]), ncol=ncol(stateMatrix))
 }
 # sequential monte carlo parameters
-smcParameters <- list(numParticles=500)
+smcParameters <- list(numParticles=100)
 
 # estimation target using marginal likelihood maximization 
 estimationTarget <- NULL
