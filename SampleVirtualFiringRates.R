@@ -27,3 +27,9 @@ bernoulliObservation <- function(x){
   # y[t] = Bernoulli(x[t])
   rbinom(n=length(x),size=1,prob=x)
 }
+
+# observation model
+poissonObservation <- function(x){
+  # y[t] = Poisson(x[t], lambda)
+  rpois(n=length(x),lambda=x)
+}

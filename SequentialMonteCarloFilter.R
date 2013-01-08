@@ -16,7 +16,12 @@ SequentialMonteCarloFilter <- function(smcParameters, systemModelFun, observatio
       numParticles <- smcParameters[["numParticles"]]
       numObs <- ncol(observation)
       lenObsVec <- nrow(observation)
-      lenStateVec <- length(initialState)
+      dimOfInitialState <- dim(initialState)
+      if(is.null(dimOfInitialState)){
+        lenStateVec <- length(initialState)
+      } else {
+        lenStateVec <- dimOfInitialState[1]
+      }
       # state vector(matrix) xtt(filtered state), xt(predicted state)
       xtt <- array(dim=c(lenStateVec, numObs+1, numParticles)) # include initial state
       xt  <- array(dim=c(lenStateVec, numObs, numParticles))
@@ -27,7 +32,7 @@ SequentialMonteCarloFilter <- function(smcParameters, systemModelFun, observatio
       for(i_obs in 1:numObs){
         # prediction
 #         xt[, i_obs, ] <- systemModelFun(array(xtt[,i_obs,],c(lenStateVec, numParticles)), modelParameters)
-        xt[, i_obs, ] <- systemModelFun(xtt[,i_obs,], modelParameters)        
+        xt[, i_obs, ] <- systemModelFun(xtt[,i_obs,], modelParameters) 
         # probability weights
         wt[i_obs,] <- observationProbabilityFun(observation[,i_obs], xt[,i_obs,], modelParameters)
         sumwt <- sum(wt[i_obs,])
